@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package org.gradle.api.internal.tasks.compile.incremental.analyzer;
+package org.gradle.internal.buildtree;
 
-import org.gradle.api.internal.tasks.compile.incremental.deps.ClassAnalysis;
-import org.gradle.cache.Cache;
-import org.gradle.internal.hash.HashCode;
+import org.gradle.internal.service.ServiceRegistry;
 
-public interface ClassAnalysisCache extends Cache<HashCode, ClassAnalysis> {
+class DefaultBuildTreeContext implements BuildTreeContext {
+    private final ServiceRegistry services;
+
+    public DefaultBuildTreeContext(ServiceRegistry services) {
+        this.services = services;
+    }
+
+    @Override
+    public ServiceRegistry getBuildTreeServices() {
+        return services;
+    }
 }
