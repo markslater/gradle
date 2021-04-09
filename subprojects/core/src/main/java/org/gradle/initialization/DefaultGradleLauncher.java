@@ -35,7 +35,7 @@ import java.util.function.Function;
 
 public class DefaultGradleLauncher implements GradleLauncher {
     private enum Stage {
-        Created, TaskGraph, Finished;
+        Created, Configure, TaskGraph, Finished;
 
         String getDisplayName() {
             if (TaskGraph == this) {
@@ -139,7 +139,13 @@ public class DefaultGradleLauncher implements GradleLauncher {
             if (stage == Stage.Created && gradle.isRootBuild()) {
                 buildOptionBuildOperationProgressEventsEmitter.emit(gradle.getStartParameter());
             }
-            return action.apply(modelController);
+            try {
+                return action.apply(modelController);
+            } finally {
+                if (stage == Stage.Created) {
+                    stage = Stage.Configure;
+                }
+            }
         } catch (Throwable t) {
             stageFailure = exceptionAnalyser.transform(t);
             throw stageFailure;

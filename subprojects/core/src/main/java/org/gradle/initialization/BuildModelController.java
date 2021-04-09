@@ -38,12 +38,12 @@ public interface BuildModelController {
     GradleInternal getConfiguredModel();
 
     /**
-     * Schedules the given tasks.
+     * Schedules the given tasks. May configure the build, if required.
      */
     void scheduleTasks(Iterable<String> tasks);
 
     /**
-     * Schedules the user requested tasks for this build.
+     * Schedules the user requested tasks for this build. May configure the build, if required.
      */
     void scheduleRequestedTasks();
 }
