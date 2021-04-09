@@ -44,3 +44,26 @@ Some plugins will break with this new version of Gradle, for example because the
 The `JacocoMerge` task was used for merging coverage reports from different subprojects into a single report.
 The same functionality is also available on the `JacocoReport` task.
 Because of the duplication, `JacocoMerge` is now deprecated and scheduled for removal in Gradle 8.0.
+
+==== Cleanup of the `org.gradle.util` package
+
+Despite being an internal package, the `org.gradle.util` package is used by several Gradle plugins. In Gradle 7.1 we cleaned up the package, marked
+the accidentally exposed classes as deprecated, and set them for removal in Gradle 8.0. The following classes are now deprecated:
+
+- `VersionNumber`
+- `TextUtil`
+- `WrapUtil`
+- `RelativePathUtil`
+- `DistributionLocator`
+
+=== Potential breaking changes
+
+The following classes have been removed from the `org.gradle.util` package:
+
+ - `TreeVisitor`
+ - `Mark`
+ - `IncubationLogger`
+ - `AntUtil`
+ - `JarUtil`
+ - `NoOpChangeListener`
+ - `DeferredUtil`
